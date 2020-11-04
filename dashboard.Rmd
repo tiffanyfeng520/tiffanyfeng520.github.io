@@ -54,8 +54,8 @@ Column {data-width=350}
 
 ```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
-  group_by(year, prcp) %>% 
-  summarise(mean_prcp = mean(prcp), na.rm = TRUE) %>%
+  group_by(year) %>% 
+  summarise(mean_prcp = mean(prcp, na.rm = TRUE)) %>%
   mutate(text_label = str_c("Year: ", year, "\nAverage precipitation: ", mean_prcp)) %>% 
   plot_ly(
     y = ~mean_prcp, x = ~year, color = ~as.factor(year), text = ~text_label,
@@ -63,12 +63,14 @@ ny_noaa %>%
 ```
 
 
-### Chart C: Trend for average precipitation in 1991 to 2010 in each station
+### Chart C: Trend for average precipitation in 1991 to 2010 in stations begin with "USW"
 
 ```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
+  filter(str_detect(id, "USW")) %>% 
   group_by(id, year) %>% 
-  summarise(mean_prcp = mean(prcp), na.rm = TRUE) %>%
+  summarise(mean_prcp = mean(prcp, na.rm = TRUE)) %>%
+  drop_na(mean_prcp) %>% 
   mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year, "\nAverage precipitation: ", mean_prcp)) %>% 
   plot_ly(
     y = ~mean_prcp, x = ~year, color = ~id, text = ~text_label,

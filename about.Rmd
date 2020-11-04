@@ -5,3 +5,42 @@ output:
     toc: true
     toc_float: true
 ---
+# RESUME
+
+
+## EDUCATION BACKGROUND
+
+
+University                       | Major                    | GPA           | Year
+---------------------------------|--------------------------|---------------|-----------------
+Columbia University              | Biostatistics            | --            | 2020-2022
+University of Wisconsin-Madison  | Mathematics; Statistics  |3.836          | 2017-2019
+
+
+## ACADEMIC RESEARCH EXPERIENCE
+
+Company                          | Occupation               | Place         | Time
+---------------------------------|--------------------------|---------------|-----------------
+Van Os’ Animal Welfare Lab, Dept. of Dairy Science | Research Assistant| Madison, WI | 11/2018-06/2019
+
+
+## PROFESSIONAL EXPERIENCE
+
+Company                          | Occupation               | Place         | Time
+---------------------------------|--------------------------|---------------|-----------------
+Kuaishou (global headquarter)    | Data Analyst             |Beijing, China |10/2020 till now
+Bain & Company                   | OOP PTA                  |Shanghai, China|09-10/2020
+Lenovo Group (global headquarter)| Algorithm Engineer Intern|Beijing, China |07-10/2019
+
+## PROJECT
+
+Name              |Supervisor         |Programming Language| Place                 | Place | Time
+----------------------------|--------------|---------------------|----------|------------
+Predicting the Price of Bitcoin (BTC) Using Deep Learning| Prof. Sebastian Raschka|Python|Madison, WI| 01-05/2019
+Prediction of Yelp Data Based on NLP | Prof. Pixu Shi| R| Madison, WI| 09-12/2018
+
+
+
+
+
+

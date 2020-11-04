@@ -1,0 +1,74 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    source: embed
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+library(lubridate)
+```
+
+```{r}
+data("ny_noaa")
+ny_noaa = 
+  ny_noaa %>% 
+  mutate(tmax = as.numeric(tmax),
+         tmin = as.numeric(tmin),
+         year = year(date),
+         month = month(date),
+         snow_mm = snow,
+         snow = round(snow_mm * 0.03937 * 4) / 4) %>% 
+  filter(year > 1990)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+ny_noaa %>% 
+  group_by(id, year) %>% 
+  mutate(year = as.factor(year)) %>% 
+  summarize(mean_tmax = mean(tmax, na.rm = TRUE),
+            mean_tmin = mean(tmin, na.rm = TRUE)) %>% 
+  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year)) %>% 
+ plot_ly(
+    y = ~mean_tmax, x = ~mean_tmin, color = ~year, text = ~text_label,
+    type = "scatter", colors = "viridis")
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+ny_noaa %>% 
+  filter(snow_mm < 100, snow_mm > 0) %>%
+  plot_ly(
+    y = ~snow, x = ~year, color = ~as.factor(year),
+    type = "bar", colors = "viridis")
+
+```
+
+### Chart C
+
+```{r}
+ny_noaa %>% 
+  group_by(id, year) %>% 
+  summarise(mean_prcp = mean(prcp), na.rm = TRUE) %>%
+  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year)) %>% 
+  plot_ly(
+    y = ~mean_prcp, x = ~year, color = ~id, text = ~text_label,
+    type = "scatter", colors = "viridis") %>% 
+  add_lines(color = ~id)
+```
+

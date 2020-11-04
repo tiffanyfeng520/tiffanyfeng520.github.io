@@ -6,6 +6,24 @@ output:
     toc_float: true
 ---
 
-## Introduction
+<img src="photo/pet.JPG" style="width:75%">
+
+# Introduction
+
+Hi, this is Yatong Feng, and you can also call me Tiffany! I take the course of Data Science this semester This is my dog. Her name is Cookie. And perhaps she loves coding more than me.
+
+# Links to other websites
+
+Let's link to useful tools for data science:
+
+* [Google](https://www.google.com/)
+* [P8105](https://p8105.com)
+
+# More information about me
+
+This is the link to my academic and professional experience
+
+[About me](about.html)
+
 
 

@@ -30,18 +30,18 @@ ny_noaa =
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A: Scatter plot for maximum and minimum temparature in 1991 to 2010 in each weather station
+### Chart A: Scatter plot for average maximum and minimum temparature in 1991 to 2010 in each weather station
 
 
 ```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
   group_by(id, year) %>% 
   mutate(year = as.factor(year)) %>% 
-  summarize(mean_tmax = mean(tmax, na.rm = TRUE),
-            mean_tmin = mean(tmin, na.rm = TRUE)) %>% 
-  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year)) %>% 
+  summarize(Average_maximum_temparature= mean(tmax, na.rm = TRUE),
+            Average_minimum_temparature = mean(tmin, na.rm = TRUE)) %>% 
+  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year, "\nAverage maximum temparature: ", Average_maximum_temparature, "\nAverage minimum temparature: ", Average_minimum_temparature)) %>% 
  plot_ly(
-    y = ~mean_tmax, x = ~mean_tmin, color = ~year, text = ~text_label,
+    y = ~Average_maximum_temparature, x = ~Average_minimum_temparature, color = ~year, text = ~text_label,
     type = "scatter", colors = "viridis")
 ```
 
@@ -55,10 +55,10 @@ Column {data-width=350}
 ```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
   group_by(year) %>% 
-  summarise(mean_prcp = mean(prcp, na.rm = TRUE)) %>%
-  mutate(text_label = str_c("Year: ", year, "\nAverage precipitation: ", mean_prcp)) %>% 
+  summarise(average_precipitation = mean(prcp, na.rm = TRUE)) %>%
+  mutate(text_label = str_c("Year: ", year, "\nAverage precipitation: ", average_precipitation)) %>% 
   plot_ly(
-    y = ~mean_prcp, x = ~year, color = ~as.factor(year), text = ~text_label,
+    y = ~average_precipitation, x = ~year, color = ~as.factor(year), text = ~text_label,
     type = "bar", colors = "viridis")
 ```
 
@@ -69,11 +69,10 @@ ny_noaa %>%
 ny_noaa %>% 
   filter(str_detect(id, "USW")) %>% 
   group_by(id, year) %>% 
-  summarise(mean_prcp = mean(prcp, na.rm = TRUE)) %>%
-  drop_na(mean_prcp) %>% 
-  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year, "\nAverage precipitation: ", mean_prcp)) %>% 
+  summarise(average_precipitation = mean(prcp, na.rm = TRUE)) %>%
+  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year, "\nAverage precipitation: ", average_precipitation)) %>% 
   plot_ly(
-    y = ~mean_prcp, x = ~year, color = ~id, text = ~text_label,
+    y = ~average_precipitation, x = ~year, color = ~id, text = ~text_label,
     type = "scatter", colors = "viridis") %>% 
   add_lines(color = ~id)
 ```

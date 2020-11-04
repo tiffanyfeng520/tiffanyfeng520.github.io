@@ -34,7 +34,7 @@ Lenovo Group (global headquarter)| Algorithm Engineer Intern|Beijing, China |07-
 
 ## PROJECT
 
-Name              |Supervisor         |Programming Language| Place                 | Place | Time
+Name              |Supervisor         |Programming Language| Place          | Time
 ----------------------------|--------------|---------------------|----------|------------
 Predicting the Price of Bitcoin (BTC) Using Deep Learning| Prof. Sebastian Raschka|Python|Madison, WI| 01-05/2019
 Prediction of Yelp Data Based on NLP | Prof. Pixu Shi| R| Madison, WI| 09-12/2018

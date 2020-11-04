@@ -4,7 +4,6 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: fill
-    source: embed
 ---
 
 ```{r setup, include=FALSE}
@@ -15,25 +14,26 @@ library(flexdashboard)
 library(lubridate)
 ```
 
-```{r}
+```{r, message = FALSE}
 data("ny_noaa")
 ny_noaa = 
   ny_noaa %>% 
+  select(date, id, tmax, tmin, prcp) %>% 
   mutate(tmax = as.numeric(tmax),
          tmin = as.numeric(tmin),
          year = year(date),
-         month = month(date),
-         snow_mm = snow,
-         snow = round(snow_mm * 0.03937 * 4) / 4) %>% 
+         month = month(date)) %>% 
   filter(year > 1990)
 ```
+
 
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Chart A: Scatter plot for maximum and minimum temparature in 1991 to 2010 in each weather station
 
-```{r}
+
+```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
   group_by(id, year) %>% 
   mutate(year = as.factor(year)) %>% 
@@ -45,27 +45,31 @@ ny_noaa %>%
     type = "scatter", colors = "viridis")
 ```
 
+
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Chart B: Bar plot for average precipitation in 1991 to 2010
 
-```{r}
+
+```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
-  filter(snow_mm < 100, snow_mm > 0) %>%
+  group_by(year, prcp) %>% 
+  summarise(mean_prcp = mean(prcp), na.rm = TRUE) %>%
+  mutate(text_label = str_c("Year: ", year, "\nAverage precipitation: ", mean_prcp)) %>% 
   plot_ly(
-    y = ~snow, x = ~year, color = ~as.factor(year),
+    y = ~mean_prcp, x = ~year, color = ~as.factor(year), text = ~text_label,
     type = "bar", colors = "viridis")
-
 ```
 
-### Chart C
 
-```{r}
+### Chart C: Trend for average precipitation in 1991 to 2010 in each station
+
+```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
   group_by(id, year) %>% 
   summarise(mean_prcp = mean(prcp), na.rm = TRUE) %>%
-  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year)) %>% 
+  mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year, "\nAverage precipitation: ", mean_prcp)) %>% 
   plot_ly(
     y = ~mean_prcp, x = ~year, color = ~id, text = ~text_label,
     type = "scatter", colors = "viridis") %>% 

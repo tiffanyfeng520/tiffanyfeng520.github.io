@@ -36,12 +36,11 @@ Column {data-width=650}
 ```{r, message=FALSE,warning=FALSE}
 ny_noaa %>% 
   group_by(id, year) %>% 
-  mutate(year = as.factor(year)) %>% 
   summarize(Average_maximum_temparature= mean(tmax, na.rm = TRUE),
             Average_minimum_temparature = mean(tmin, na.rm = TRUE)) %>% 
   mutate(text_label = str_c("Weather station ID: ", id, "\nYear: ", year, "\nAverage maximum temparature: ", Average_maximum_temparature, "\nAverage minimum temparature: ", Average_minimum_temparature)) %>% 
  plot_ly(
-    y = ~Average_maximum_temparature, x = ~Average_minimum_temparature, color = ~year, text = ~text_label,
+    y = ~Average_maximum_temparature, x = ~Average_minimum_temparature, color = ~as.factor(year), text = ~text_label,
     type = "scatter", colors = "viridis")
 ```
 
